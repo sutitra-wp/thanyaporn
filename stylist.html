@@ -7,9 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- 1. โหลดไลบรารี ResponsiveVoice (เวอร์ชันเปิดใช้งานได้ทันที) -->
-    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Anuphan', sans-serif; }
@@ -93,7 +90,7 @@
             background: #fdf5ef;
             padding: 4px 14px;
             border-radius: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
         .sound-wave {
             display: none;
@@ -103,6 +100,20 @@
             animation: soundPing 1s infinite;
         }
         .speaking .sound-wave { display: inline-block; }
+
+        .btn-test-voice {
+            background: #f0e4db;
+            border: 1px solid #a88970;
+            color: #4a3e3d;
+            padding: 6px 16px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.2s;
+        }
+        .btn-test-voice:hover { background: #a88970; color: #fff; }
 
         @keyframes breathe {
             0%, 100% { transform: translateY(0); }
@@ -123,7 +134,7 @@
         }
 
         .chat-container {
-            height: 280px;
+            height: 420px;
             background: #faf8f6;
             border: 1px solid #ede5e0;
             border-radius: 18px;
@@ -137,11 +148,11 @@
         }
 
         .chat-bubble {
-            max-width: 80%;
-            padding: 12px 16px;
+            max-width: 90%;
+            padding: 14px 18px;
             border-radius: 16px;
             font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.6;
             word-wrap: break-word;
         }
 
@@ -159,6 +170,67 @@
             align-self: flex-end;
             border-top-right-radius: 4px;
         }
+
+        .product-recommend-card {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            border: 1px solid #e2d7cf;
+            border-radius: 16px;
+            padding: 12px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            align-items: center;
+            text-align: center;
+        }
+
+        .product-recommend-card img {
+            width: 100%;
+            max-width: 280px;
+            height: 220px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .product-recommend-info { width: 100%; }
+        .product-recommend-title { font-weight: 700; font-size: 15px; color: #3d312e; }
+        .product-recommend-desc { font-size: 12.5px; color: #7a6e67; margin-top: 4px; }
+        .product-recommend-price { font-weight: 700; font-size: 15px; color: #a88970; margin-top: 6px; }
+
+        .action-btn-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .next-link-btn {
+            background: #f0e4db;
+            color: #4a3e3d;
+            padding: 8px 14px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .next-link-btn:hover { background: #e2d7cf; }
+
+        .shop-link-btn {
+            display: inline-block;
+            background: #a88970;
+            color: white !important;
+            padding: 8px 14px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .shop-link-btn:hover { background: #8c6e57; }
 
         .faq-tags {
             display: flex;
@@ -178,15 +250,9 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .faq-tag-btn:hover {
-            background: #a88970;
-            color: #ffffff;
-        }
+        .faq-tag-btn:hover { background: #a88970; color: #ffffff; }
 
-        .chat-input-row {
-            display: flex;
-            gap: 10px;
-        }
+        .chat-input-row { display: flex; gap: 10px; }
         .chat-input {
             flex: 1;
             padding: 12px 20px;
@@ -224,7 +290,7 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="Cart.html">Cart 🛒</a></li>
-                <li><a href="order-success.html">Order Status </a></li>
+                <li><a href="order-success.html">Order Status</a></li>
             </ul>
         </nav>
     </header>
@@ -232,35 +298,41 @@
     <div class="container">
         <div class="section-header">
             <h1 class="page-title">คุยกับน้อง "เน่เน่" AI Stylist 🌸</h1>
-            <p class="page-subtitle">แชตบอต AI อัจฉริยะ ตอบคำถาม แนะนำชุด และพูดเสียงนุ่มนวลได้ตลอด 24 ชม. ค่ะ</p>
+            <p class="page-subtitle">ถามคำถาม แนะนำชุด หรือพูดคุยเรื่องแฟชั่นกับเน่เน่ได้ทุกเรื่องเลยนะคะ!</p>
         </div>
 
         <div class="ai-stylist-card" id="stylist-card">
+            
             <div class="avatar-box">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400" alt="Nene AI Stylist" class="avatar-img">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400" alt="เนเน่ AI Stylist" class="avatar-img">
             </div>
-            <div class="ai-name-badge">น้องเน่เน่ (Nene AI)</div>
+            <div class="ai-name-badge">น้องเนเน่ (Nene AI)</div>
+            
             <div class="voice-indicator">
                 <span class="sound-wave"></span>
-                <span id="voice-status">เน่เน่พร้อมคุยกับคุณลูกค้าแล้วค่ะ</span>
+                <span id="voice-status">เน่เน่พร้อมตอบคำถามคุณแล้วค่ะ</span>
+            </div>
+            <div>
+                <button class="btn-test-voice" onclick="testVoice()">🌸 กดทดสอบเสียงผู้หญิงหวานๆ ของเน่เน่</button>
             </div>
 
             <div class="chat-container" id="chat-box">
                 <div class="chat-bubble nene">
-                    สวัสดีค่ะคุณลูกค้า~ เน่เน่ยินดีต้อนรับนะคะ💖 วันนี้อยากให้เน่เน่ช่วยแนะนำชุด หรือมีคำถามเรื่องค่าจัดส่ง/โปรโมชั่น พิมพ์แชตถามเน่เน่ได้เลยนะคะ!
+                    สวัสดีค่ะคุณลูกค้า~ เน่เน่ยินดีต้อนรับนะคะ💖 วันนี้อยากได้ชุดไปไหน หรือมีคำถามอะไรสงสัย พิมพ์ถามเน่เน่ได้เลยนะคะ ยินดีตอบทุกคำถามเลยค่ะ!
                 </div>
             </div>
 
             <div class="faq-tags">
-                <button class="faq-tag-btn" onclick="quickAsk('แนะนำชุดไปคาเฟ่ให้หน่อยค่ะ')">☕ ชุดไปคาเฟ่</button>
-                <button class="faq-tag-btn" onclick="quickAsk('อยากได้ชุดไปทำงานสวยๆ ค่ะ')">💼 ชุดไปทำงาน</button>
-                <button class="faq-tag-btn" onclick="quickAsk('คิดค่าจัดส่งยังไงคะ')">🚚 ค่าจัดส่งกี่บาท?</button>
-                <button class="faq-tag-btn" onclick="quickAsk('มีส่วนลดอะไรบ้างคะ')">🏷️ โปรโมชั่น</button>
-                <button class="faq-tag-btn" onclick="quickAsk('เปลี่ยนไซส์ได้ไหมคะ')">🔄 การเปลี่ยนสินค้า</button>
+                <button class="faq-tag-btn" onclick="quickAsk('แนะนำชุดไปทะเลสวยๆ หน่อย')">🏖️ ชุดไปทะเล</button>
+                <button class="faq-tag-btn" onclick="quickAsk('มีชุดไปทำงานลุคเวิร์กกิ้งวูแมนแนะนำไหม')">💼 ชุดไปทำงาน</button>
+                <button class="faq-tag-btn" onclick="quickAsk('อยากได้ชุดไปคาเฟ่น่ารักๆ')">☕ ชุดไปคาเฟ่</button>
+                <button class="faq-tag-btn" onclick="quickAsk('แนะนำชุดไปปาร์ตี้หรูๆ')">✨ ชุดไปปาร์ตี้</button>
+                <button class="faq-tag-btn" onclick="quickAsk('ชุดไปทำบุญเรียบร้อยๆ')">🙏 ชุดไปทำบุญ</button>
+                <button class="faq-tag-btn" onclick="quickAsk('วันนี้ใส่เสื้อสีอะไรดี')">🎨 สีเสื้อมงคลวันนี้</button>
             </div>
 
             <div class="chat-input-row">
-                <input type="text" id="user-input" class="chat-input" placeholder="พิมพ์ข้อความคุยกับเน่เน่ที่นี่เลยค่ะ..." onkeypress="handleKeyPress(event)">
+                <input type="text" id="user-input" class="chat-input" placeholder="พิมพ์ถามเน่เน่ได้ทุกเรื่องเลยค่ะ..." onkeypress="handleKeyPress(event)">
                 <button class="btn-send" onclick="sendMessage()">ส่งแชต</button>
             </div>
         </div>
@@ -269,17 +341,45 @@
     <footer><p>&copy; 2026 AI Virtual Stylist. All rights reserved.</p></footer>
 
     <script>
-        const neneKnowledge = [
-            { keywords: ["คาเฟ่", "กาแฟ", "เที่ยว"], text: "ถ้าไปฮอปปิ้งคาเฟ่ เน่เน่แนะนำ 'ชุดเซ็ตคาร์ดิแกนคู่กระโปรงสั้นมินิมอลเกรซ' ค่ะ คุมโทนสว่าง ถ่ายรูปออกมาน่ารักมากๆ เลยนะคะ ✨" },
-            { keywords: ["ทำงาน", "ออฟฟิศ", "ประชุม"], text: "สำหรับชุดทำงาน เน่เน่ขอเชียร์ 'เดรสสูทคัตติ้งมาสเตอร์' ค่ะ ใส่แล้วดูเป็นเวิร์กกิ้งวูแมนที่สง่าและมีสไตล์สุดๆ เลยค่ะ 💕" },
-            { keywords: ["ทะเล", "ชายหาด", "เกาะ"], text: "ไปเที่ยวทะเล เน่เน่แนะนำ 'เดรสลินินสายลมฤดูร้อน' ค่ะ ผ้าบางเบาใส่สบาย พริ้วรับลมทะเลสวยมากๆ ค่ะ 🌊" },
-            { keywords: ["ทำบุญ", "วัด", "สุภาพ"], text: "ถ้าไปทำบุญ เน่เน่แนะนำ 'ชุดเซ็ตกระโปรงบานนวลครีม' ค่ะ สวยเรียบร้อย ถูกกาลเทศะ และดูแพงมากๆ เลยค่ะ 🙏" },
-            { keywords: ["ปาร์ตี้", "งานเลี้ยง", "กลางคืน"], text: "ออกงานปาร์ตี้ ต้อง 'เดรสซาตินราตรีเที่ยงคืน' เลยค่ะคุณลูกค้า โดดเด่นขับผิววิ้งวับยามค่ำคืนแน่นอนค่ะ ✨" },
-            { keywords: ["ส่ง", "ค่าส่ง", "กี่วัน"], text: "เรื่องการจัดส่ง ร้านเราจัดส่งด่วน EMS ฟรีเมื่อซื้อครบ 1,500 บาทค่ะ หากไม่ถึงจะมีค่าจัดส่ง 50 บาท และสินค้าจะถึงมือภายใน 1-2 วันทำการนะคะ 🚚" },
-            { keywords: ["โปร", "ลด", "ส่วนลด"], text: "ตอนนี้มีโปรโมชั่นซื้อยกชุดลดพิเศษ 10-15% พร้อมจัดส่งฟรีทั่วประเทศเลยนะคะ คุ้มมากๆ เลยค่ะคุณลูกค้า 🎁" },
-            { keywords: ["เปลี่ยน", "คืน", "ไซส์"], text: "หากซื้อไปแล้วใส่ไม่พอดี สามารถแจ้งเปลี่ยนไซส์ได้ภายใน 7 วันหลังได้รับสินค้าค่ะ สินค้าต้องอยู่ในสภาพเดิมนะคะ เน่เน่ยินดีดูแลให้ค่ะ 💖" },
-            { keywords: ["ราคา", "กี่บาท"], text: "สินค้าร้านเราเริ่มต้นตั้งแต่ 390 บาท ไปจนถึงชุดเซ็ตพรีเมียม 2,890 บาทค่ะ เลือกชมในหน้า Shop ได้เลยนะคะ 🛍️" }
-        ];
+        const shopProducts = {
+            blazer: [
+                { name: "เดรสลินินสายลมฤดูร้อน (Beach Look 1)", desc: "เดรสผ้าลินินทรงปล่อย พริ้วไหวรับลมทะเลสบายๆ", price: 2090, image: "img/beach1.jpg" },
+                { name: "แม็กซี่เดรสริมหาด (Beach Look 2)", desc: "เดรสยาวผ้าพริ้ว สวมใส่สบาย เหมาะแก่การเดินทอดน่อง", price: 2190, image: "img/beach2.jpg" },
+                { name: "เซ็ตขาสั้นลายคลื่น (Beach Look 3)", desc: "ชุดเซ็ตไปทะเลโทนซอฟต์ มอบความสดใสและน่ารัก", price: 2290, image: "img/beach3.jpg" },
+                { name: "สายเดี่ยวโบฮีเมียน (Beach Look 4)", desc: "ชุดลุคชิลๆ รับลมทะเล ถ่ายรูปขึ้นกล้องสุดๆ", price: 2390, image: "img/beach4.jpg" },
+                { name: "เสื้อคลุมบีชแวร์ (Beach Look 5)", desc: "เสื้อคลุมบางเบาสำหรับใส่ทับชุดว่ายน้ำเรียบหรู", price: 2490, image: "img/beach5.jpg" }
+            ],
+            dress: [
+                { name: "เดรสสูทคัตติ้งเเนื้อบ (Work Look 1)", desc: "เดรสทรงทางการ มอบลุคเวิร์กกิ้งวูแมนมั่นใจ", price: 2090, image: "img/work1.jpg" },
+                { name: "เดรสมีดี้สมาร์ทแคชชวล (Work Look 2)", desc: "เดรสยาวคลุมเข่า สุภาพ เรียบร้อยและใส่สบาย", price: 2190, image: "img/work2.jpg" },
+                { name: "เบลเซอร์เดรสคลาสสิก (Work Look 3)", desc: "ชุดเดรสสไตล์เบลเซอร์ เพิ่มความภูมิฐานในการทำงาน", price: 2290, image: "img/work3.jpg" },
+                { name: "เดรสเรียบหรูเอิร์ธโทน (Work Look 4)", desc: "โทนสีสุภาพ เหมาะกับการประชุมและการติดต่อธุรกิจ", price: 2390, image: "img/work4.jpg" },
+                { name: "เดรสแขนยาวมินิมอล (Work Look 5)", desc: "ชุดทำงานสไตล์เรียบง่าย ทรงสวย คัตติ้งประณีต", price: 2490, image: "img/work5.jpg" }
+            ],
+            shirt: [
+                { name: "มินิเดรสชิคอินคาเฟ่ (Cafe Look 1)", desc: "เดรสสั้นถ่ายรูปสวย น่ารักลงตัวสำหรับวันเที่ยวคาเฟ่", price: 2090, image: "img/cafe1.jpg" },
+                { name: "เสื้อครอปไหมพรมชิคๆ (Cafe Look 2)", desc: "เสื้อครอปโทนสีหวานจับคู่กางเกง ให้มู้ดสบายๆ", price: 2190, image: "img/cafe2.jpg" },
+                { name: "เดรสสั้นสีขาวบริสุทธิ์ (Cafe Look 3)", desc: "ลุคคุณหนูหวานละมุน ถ่ายรูปมุมไหนก็ปัง", price: 2290, image: "img/cafe3.jpg" },
+                { name: "เซ็ตสตรีทแคชชวล (Cafe Look 4)", desc: "ชุดใส่ชิลๆ จิบกาแฟ มินิมอลแต่เก๋ไก๋", price: 2390, image: "img/cafe4.jpg" },
+                { name: "เสื้อเชิ้ตดีไซน์ชิค (Cafe Look 5)", desc: "เชิ้ตทรงหลวมแมตช์ง่าย ให้ลุคนั่งคาเฟ่สบายตา", price: 2490, image: "img/cafe5.jpg" }
+            ],
+            knitwear: [
+                { name: "เดรสซาตินเที่ยงคืน (Party Look 1)", desc: "เดรสซาตินเงางาม เล่นแสงไฟในงานปาร์ตี้", price: 2090, image: "img/party1.jpg" },
+                { name: "เดรสกำมะหยี่หรูหรา (Party Look 2)", desc: "คัตติ้งเข้ารูป เพิ่มเสน่ห์ความโดดเด่นยามค่ำคืน", price: 2190, image: "img/party2.jpg" },
+                { name: "มินิเดรสกลิตเตอร์ (Party Look 3)", desc: "เดรสสายเดี่ยวประกายวิบวับ เหมาะกับสายปาร์ตี้", price: 2290, image: "img/party3.jpg" },
+                { name: "เดรสเปิดหลังสุดแซ่บ (Party Look 4)", desc: "เรียบหรูแฝงความเซ็กซี่ โดดเด่นในทุกงานเลี้ยง", price: 2390, image: "img/party4.jpg" },
+                { name: "ชุดราตรีสั้นพรีเมียม (Party Look 5)", desc: "ลุคสวยแพง เรียบโก้ ทรงสวยเป๊ะ", price: 2490, image: "img/party5.jpg" }
+            ],
+            trousers: [
+                { name: "ชุดเซ็ตกระโปรงบานนวลครีม (Merit Look 1)", desc: "ชุดเรียบร้อยสีนุ่มนวล เหมาะสำหรับเข้าวัดทำบุญ", price: 2090, image: "img/merit1.jpg" },
+                { name: "เซ็ตเชิ้ตเอิร์ธโทนสุภาพ (Merit Look 2)", desc: "กระโปรงยาวพริ้วสีครีมเบจ สวยแพงและสุภาพ", price: 2190, image: "img/merit2.jpg" },
+                { name: "เดรสยาวสีขาวล้วน (Merit Look 3)", desc: "เดรสแขนยาวคลุมเข่า ดูงดงาม อ่อนหวาน เรียบร้อย", price: 2290, image: "img/merit3.jpg" },
+                { name: "ชุดเซ็ตลูกไม้เรียบหรู (Merit Look 4)", desc: "ดีไซน์ประณีต สุภาพ เหมาะกับงานบุญและงานพิธี", price: 2390, image: "img/merit4.jpg" },
+                { name: "ชุดไทยประยุกต์มินิมอล (Merit Look 5)", desc: "ผสมผสานความร่วมสมัย เรียบร้อย ถูกกาลเทศะ", price: 2490, image: "img/merit5.jpg" }
+            ]
+        };
+
+        let currentAudio = null; // ตัวแปรเก็บไฟล์เสียงที่กำลังเล่น
 
         function handleKeyPress(e) {
             if (e.key === 'Enter') sendMessage();
@@ -290,6 +390,73 @@
             sendMessage();
         }
 
+        function buildSingleProductRecommendation(categoryKey, titleText, index = 0) {
+            const list = shopProducts[categoryKey];
+            const item = list[index % list.length];
+            
+            let reply = `เน่เน่ขอคัดชุดสวยจากในร้านเราในหมวด **${titleText}** แนะนำให้ทีละชุดค่ะ! ✨<br>`;
+            
+            reply += `
+                <div class="product-recommend-card">
+                    <img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/280x220?text=Shop+Product+Image'">
+                    <div class="product-recommend-info">
+                        <div class="product-recommend-title">✨ ${item.name}</div>
+                        <div class="product-recommend-desc">${item.desc}</div>
+                        <div class="product-recommend-price">฿${item.price.toLocaleString()}</div>
+                    </div>
+                    <div class="action-btn-group">
+                        <button class="next-link-btn" onclick="getAnotherProduct('${categoryKey}', '${titleText}', ${index + 1})">🎲 ดูชุดอื่นในหมวดนี้</button>
+                        <a href="shop.html" class="shop-link-btn">🛒 ไปยังหน้า Shop</a>
+                    </div>
+                </div>
+            `;
+            return reply;
+        }
+
+        function getAnotherProduct(categoryKey, titleText, nextIndex) {
+            const replyText = buildSingleProductRecommendation(categoryKey, titleText, nextIndex);
+            appendBubble(replyText, 'nene');
+            speakNene(replyText);
+        }
+
+        function generateSmartReply(userMsg) {
+            const msg = userMsg.toLowerCase();
+
+            if (msg.includes("ทะเล") || msg.includes("ชายหาด") || msg.includes("เกาะ")) {
+                return buildSingleProductRecommendation("blazer", "ลุคไปทะเล 🏖️", 0);
+            }
+            if (msg.includes("ทำงาน") || msg.includes("ออฟฟิศ") || msg.includes("ประชุม") || msg.includes("สัมภาษณ์")) {
+                return buildSingleProductRecommendation("dress", "ลุคไปทำงาน 💼", 0);
+            }
+            if (msg.includes("คาเฟ่") || msg.includes("กาแฟ") || msg.includes("ถ่ายรูป")) {
+                return buildSingleProductRecommendation("shirt", "ลุคไปคาเฟ่ ☕", 0);
+            }
+            if (msg.includes("ปาร์ตี้") || msg.includes("งานเลี้ยง") || msg.includes("กลางคืน") || msg.includes("ออกงาน")) {
+                return buildSingleProductRecommendation("knitwear", "ลุคไปปาร์ตี้ ✨", 0);
+            }
+            if (msg.includes("ทำบุญ") || msg.includes("วัด") || msg.includes("งานบุญ")) {
+                return buildSingleProductRecommendation("trousers", "ลุคไปทำบุญ 🙏", 0);
+            }
+
+            if (msg.includes("หวัดดี") || msg.includes("สวัสดี") || msg.includes("hello") || msg.includes("hi")) {
+                return "สวัสดีค่ะคุณลูกค้า~ เน่เน่ยินดีต้อนรับนะคะ มีอะไรให้เน่เน่ช่วยดูแลเรื่องสไตล์หรือตอบคำถามวันนี้ไหมคะ 💕";
+            }
+            if (msg.includes("มงคล") || msg.includes("สีมงคล") || msg.includes("วันนี้ใส่สีอะไร")) {
+                return "วันนี้เน่เน่แนะนำโทนสีมงคลประจำวันให้ค่ะ! ✨<br>• วันจันทร์: สีเขียว / สีฟ้า<br>• วันอังคาร: สีชมพู / สีส้ม<br>• วันพุธ: สีเหลือง-ครีม / สีเทา<br>• วันพฤหัส: สีส้ม-ทอง / สีแดง<br>• วันศุกร์: สีชมพู-ฟ้า / สีเหลือง<br>• วันเสาร์: สีม่วง-ดำ / สีน้ำเงิน<br>• วันอาทิตย์: สีแดง / สีเขียว<br><br>เสื้อผ้าสไตล์ **ครีม นู้ด คลาสสิกมินิมอล** ในร้านเราแมตช์เข้าได้ทุกวันเลยค่ะ 💕";
+            }
+            if (msg.includes("เป็นใคร") || msg.includes("ชื่ออะไร") || msg.includes("ทำอะไรได้บ้าง")) {
+                return "เน่เน่คือ AI Stylist ผู้ช่วยแนะนำการแต่งกายประจำร้านค่ะ! เน่เน่สามารถช่วยแนะนำชุดตามโอกาสต่างๆ ช่วยเลือกสีเสื้อมงคล คัดชุดสวยๆ จากในร้านให้ดูทีละชุด หรือตอบคำถามเรื่องสไตล์การแต่งตัวได้หมดเลยค่ะ ✨";
+            }
+            if (msg.includes("ส่งกี่วัน") || msg.includes("ค่าส่ง") || msg.includes("ขนส่ง")) {
+                return "ทางร้านจัดส่งสินค้าผ่านขนส่งเอกชน ใช้เวลาเตรียมจัดส่ง 1-2 วันทำการ ค่าจัดส่งเหมาจ่าย 50 บาททั่วประเทศค่ะ! สั่งซื้อครบ 1,500 บาท จัดส่งฟรีทันทีนะคะ ✨";
+            }
+            if (msg.includes("คืนสินค้า") || msg.includes("เปลี่ยนไซส์") || msg.includes("ลอง")) {
+                return "ทางร้านมีบริการเปลี่ยนไซส์ได้ภายใน 7 วันหลังจากได้รับสินค้าค่ะ สินค้าต้องอยู่ในสภาพสมบูรณ์ยังไม่ตัดป้ายออกนะคะ สามารถติดต่อแอดมินผ่านหน้า Contact ได้เลยค่ะ 💕";
+            }
+
+            return "เน่เน่ยินดีตอบคำถามและช่วยเหลือค่ะ! ไม่ว่าจะอยากได้คำแนะนำชุดไปเที่ยว คาเฟ่ ทำงาน สีมงคล หรือเรื่องอื่นๆ สอบถามเน่เน่เข้ามาเพิ่มได้ตลอดเลยนะคะ 💕";
+        }
+
         function sendMessage() {
             const input = document.getElementById('user-input');
             const userMsg = input.value.trim();
@@ -298,14 +465,7 @@
             appendBubble(userMsg, 'user');
             input.value = '';
 
-            let neneReply = "เน่เน่รับทราบค่ะคุณลูกค้า~ สำหรับคำถามนี้ คุณลูกค้าสามารถลองดูสินค้าเพิ่มเติมในหน้า Shop หรือทักแชทหาแอดมินให้ช่วยดูแลเพิ่มเติมได้เลยนะคะ 💕";
-
-            for (let item of neneKnowledge) {
-                if (item.keywords.some(kw => userMsg.includes(kw))) {
-                    neneReply = item.text;
-                    break;
-                }
-            }
+            const neneReply = generateSmartReply(userMsg);
 
             setTimeout(() => {
                 appendBubble(neneReply, 'nene');
@@ -317,45 +477,62 @@
             const chatBox = document.getElementById('chat-box');
             const bubble = document.createElement('div');
             bubble.className = `chat-bubble ${sender}`;
-            bubble.innerText = text;
+            bubble.innerHTML = text;
             chatBox.appendChild(bubble);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        // 2. ปรับแต่งฟังก์ชันเรียกใช้ ResponsiveVoice ล็อคเสียงผู้หญิงไทย
+        function testVoice() {
+            speakNene("สวัสดีค่ะคุณลูกค้า เน่เน่ยินดีต้อนรับนะคะ วันนี้อยากได้ชุดสวยๆ แบบไหน ให้เน่เน่ช่วยเลือกได้เลยค่ะ");
+        }
+
+        // ระบบเสียงผู้หญิงไทย 100% ผ่าน Google Audio (ไม่ต้องง้อระบบเครื่อง)
         function speakNene(text) {
             const card = document.getElementById('stylist-card');
             const status = document.getElementById('voice-status');
 
+            // ตัดสัญลักษณ์และข้อความแท็กออก
+            let div = document.createElement("div");
+            div.innerHTML = text;
+            let cleanText = div.textContent || div.innerText || "";
+            cleanText = cleanText.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}✨💕☕💼🏖️🙏🎨🛒🎲•]/gu, '').trim();
+
+            if (!cleanText) return;
+
+            // หยุดเสียงเดิมที่กำลังเล่นอยู่
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+
+            // จำกัดความยาวข้อความไม่เกิน 200 ตัวอักษรต่อรอบเล่นเสียง
+            const encodedText = encodeURIComponent(cleanText.substring(0, 200));
+            
+            // เรียกใช้ Google Translate Voice เสียงผู้หญิงไทย 100%
+            const soundUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=th&client=tw-ob`;
+
+            currentAudio = new Audio(soundUrl);
+            
             card.classList.add('speaking');
-            status.innerText = "เน่เน่กำลังพูดตอบเป็นภาษาไทย...";
+            if (status) status.innerText = "เน่เน่กำลังพูด...";
 
-            if (window.responsiveVoice) {
-                // ปล่อยเสียงพูดผู้หญิงไทย (Thai Female)
-                responsiveVoice.speak(text, "Thai Female", {
-                    pitch: 1.1,  // ปรับระดับเสียงให้หวานใสขึ้น
-                    rate: 0.95,  // ปรับความเร็วการพูดให้พอดี
-                    onstart: function() {
-                        card.classList.add('speaking');
-                    },
-                    onend: function() {
-                        card.classList.remove('speaking');
-                        status.innerText = "เน่เน่พร้อมคุยกับคุณลูกค้าแล้วค่ะ";
-                    }
-                });
-            } else {
-                console.error("ResponsiveVoice ไม่พร้อมใช้งาน");
+            currentAudio.play().then(() => {
+                card.classList.add('speaking');
+            }).catch(error => {
                 card.classList.remove('speaking');
-                status.innerText = "เน่เน่พร้อมคุยกับคุณลูกค้าแล้วค่ะ";
-            }
-        }
+                if (status) status.innerText = "กรุณากดที่หน้าจอ 1 ครั้งเพื่อเปิดระบบเสียงค่ะ";
+            });
 
-        // ปลดล็อกระบบ Audio เมื่อผู้ใช้คลิกส่วนใดส่วนหนึ่งบนหน้าเว็บครั้งแรก (แก้ปัญหา Autoplay Block)
-        document.body.addEventListener('click', function() {
-            if (window.responsiveVoice && !responsiveVoice.voiceSupport()) {
-                responsiveVoice.init();
-            }
-        }, { once: true });
+            currentAudio.onended = function() {
+                card.classList.remove('speaking');
+                if (status) status.innerText = "เน่เน่พร้อมตอบคำถามคุณแล้วค่ะ";
+            };
+
+            currentAudio.onerror = function() {
+                card.classList.remove('speaking');
+                if (status) status.innerText = "เกิดข้อผิดพลาดในการโหลดเสียง";
+            };
+        }
     </script>
 </body>
 </html>
