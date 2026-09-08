@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Virtual Stylist - Contact</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Anuphan', sans-serif;
+        }
+
+        body {
+            background-color: #fcf9f6;
+            color: #4a3e3d;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Navigation Bar --- */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(180,160,150,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #a88970, #c8b195);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            font-size: 15px;
+            color: #7a6e67;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #a88970;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #a88970;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* --- Contact Content --- */
+        .contact-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .contact-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #3d312e;
+            margin-bottom: 40px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid #ede5e0;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(168,137,112,0.03);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #f6f0ea;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        /* ตกแต่งไอคอนกลมๆ สไตล์เอิร์ธโทน */
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #fbf8f5;
+            border: 1px solid #ede5e0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .info-text p {
+            font-size: 16px;
+            color: #4a3e3d;
+        }
+
+        .info-text p strong {
+            color: #3d312e;
+            display: inline-block;
+            width: 100px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #3d312e;
+            color: #baae7a;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 14px;
+            margin-top: 140px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">AI Virtual Stylist</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="stylist.html">AI Stylist</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="Cart.html">Cart</a></li>
+                <li><a href="order-success.html">Order Status </a></li>
+                
+            
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contact-container">
+        <h1 class="contact-title">Contact Us</h1>
+
+        <div class="info-card">
+            <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-text">
+                    <p><strong>สถานที่ตั้ง:</strong> สตูดิโอ AI แฟชั่น กรุงเทพมหานคร</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">✉️</div>
+                <div class="info-text">
+                    <p><strong>อีเมล:</strong> contact@aivirtualstylist.com</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">📞</div>
+                <div class="info-text">
+                    <p><strong>เบอร์โทร:</strong> 02-123-4567</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🕒</div>
+                <div class="info-text">
+                    <p><strong>เวลาทำการ:</strong> ทุกวันตลอด 24 ชั่วโมง</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 AI Virtual Stylist. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

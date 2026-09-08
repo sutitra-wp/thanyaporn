@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Status - AI Virtual Stylist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Anuphan', sans-serif; }
+        body { background-color: #fcf9f6; color: #4a3e3d; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+
+        header { background-color: #ffffff; box-shadow: 0 2px 15px rgba(180,160,150,0.1); position: sticky; top: 0; z-index: 1000; }
+        .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 20px; }
+        .logo { font-size: 24px; font-weight: 700; background: linear-gradient(45deg, #a88970, #c8b195); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links a { font-weight: 600; font-size: 15px; color: #7a6e67; }
+
+        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        
+        .card { background: white; border-radius: 24px; padding: 35px; border: 1px solid #ede5e0; box-shadow: 0 10px 30px rgba(168,137,112,0.08); margin-bottom: 25px; }
+        
+        /* Banner Success */
+        .status-header { text-align: center; border-bottom: 1px dashed #e6ded9; padding-bottom: 25px; margin-bottom: 25px; }
+        .status-icon { font-size: 65px; margin-bottom: 10px; display: inline-block; }
+        .status-title { font-size: 24px; font-weight: 700; color: #3d312e; margin-bottom: 8px; }
+        .status-desc { font-size: 15px; color: #8c7d76; }
+        .order-id { display: inline-block; background: #fdf5ef; color: #a88970; font-weight: 700; padding: 4px 12px; border-radius: 20px; font-size: 13px; margin-top: 10px; }
+
+        /* Timeline Tracker */
+        .tracker-title { font-size: 16px; font-weight: 700; color: #3d312e; margin-bottom: 20px; }
+        .timeline { display: flex; justify-content: space-between; position: relative; margin-bottom: 30px; }
+        .timeline::before { content: ''; position: absolute; top: 18px; left: 10%; width: 80%; height: 3px; background: #ede5e0; z-index: 1; }
+        .timeline-progress { position: absolute; top: 18px; left: 10%; width: 35%; height: 3px; background: #a88970; z-index: 1; transition: width 0.5s ease; }
+        
+        .step { position: relative; z-index: 2; text-align: center; flex: 1; }
+        .step-icon { width: 38px; height: 38px; border-radius: 50%; background: #fff; border: 2px solid #ede5e0; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 14px; color: #9c8e87; font-weight: 700; }
+        .step.completed .step-icon { background: #a88970; border-color: #a88970; color: white; }
+        .step.active .step-icon { background: #fff; border-color: #a88970; color: #a88970; box-shadow: 0 0 0 4px rgba(168,137,112,0.2); }
+        .step-text { font-size: 12px; font-weight: 600; color: #8c7d76; }
+        .step.completed .step-text, .step.active .step-text { color: #3d312e; font-weight: 700; }
+
+        /* Courier Box (ขนส่ง) */
+        .courier-box { background: #faf8f6; border: 1px solid #ede5e0; border-radius: 16px; padding: 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; }
+        .courier-info { display: flex; align-items: center; gap: 15px; }
+        .courier-badge { background: #ff4500; color: white; font-weight: 800; padding: 8px 12px; border-radius: 10px; font-size: 13px; letter-spacing: 0.5px; }
+        .courier-name { font-weight: 700; color: #3d312e; font-size: 15px; }
+        .courier-track { font-size: 13px; color: #8c7d76; }
+
+        /* Coupon Section (ส่วนลดให้เก็บ) */
+        .coupon-section { background: linear-gradient(135deg, #fffcf9 0%, #fdf5ef 100%); border: 1px dashed #a88970; border-radius: 20px; padding: 25px; margin-bottom: 25px; }
+        .coupon-title { font-size: 16px; font-weight: 700; color: #3d312e; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        
+        .coupon-card { background: white; border: 1px solid #e6ded9; border-radius: 14px; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .coupon-card:last-child { margin-bottom: 0; }
+        .coupon-info h4 { font-size: 15px; color: #a88970; font-weight: 700; }
+        .coupon-info p { font-size: 12px; color: #8c7d76; }
+        .btn-claim { background: #a88970; color: white; border: none; padding: 8px 18px; border-radius: 20px; font-weight: 700; font-size: 13px; cursor: pointer; transition: 0.2s; }
+        .btn-claim:hover { background: #8c6e56; }
+        .btn-claim.claimed { background: #e6ded9; color: #8c7d76; cursor: default; }
+
+        /* Buttons */
+        .btn-group { display: flex; gap: 15px; }
+        .btn-main { flex: 1; text-align: center; background: linear-gradient(45deg, #a88970, #c8b195); color: white; border: none; padding: 14px; border-radius: 30px; font-weight: 700; font-size: 15px; cursor: pointer; box-shadow: 0 5px 15px rgba(168,137,112,0.3); }
+        .btn-sub { flex: 1; text-align: center; background: #fff; color: #6e615c; border: 1px solid #e6ded9; padding: 14px; border-radius: 30px; font-weight: 700; font-size: 15px; cursor: pointer; }
+
+        footer { background: #3d312e; color: #baae7a; text-align: center; padding: 40px 20px; margin-top: 60px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">AI Virtual Stylist</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="stylist.html">AI Stylist</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="Cart.html">Cart</a></li>
+                <li><a href="order-success.html">Order Status </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- CARD 1: สถานะคำสั่งซื้อ & ไทม์ไลน์ -->
+        <div class="card">
+            <div class="status-header">
+                <span class="status-icon">🎉</span>
+                <h1 class="status-title">สั่งซื้อและชำระเงินสำเร็จ!</h1>
+                <p class="status-desc" id="items-summary">คุณสั่งซื้อสินค้าเรียบร้อยแล้ว ระบบกำลังเตรียมจัดส่งให้คุณค่ะ</p>
+                <div class="order-id">เลขที่คำสั่งซื้อ: #AIVS-2026889</div>
+            </div>
+
+            <div class="tracker-title">🚚 ติดตามสถานะคำสั่งซื้อ</div>
+            <div class="timeline">
+                <div class="timeline-progress"></div>
+                <div class="step completed">
+                    <div class="step-icon">✓</div>
+                    <div class="step-text">ชำระเงินสำเร็จ</div>
+                </div>
+                <div class="step active">
+                    <div class="step-icon">📦</div>
+                    <div class="step-text">กำลังแพ็กสินค้า</div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">🚚</div>
+                    <div class="step-text">บริษัทขนส่งรับพัสดุ</div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">🏡</div>
+                    <div class="step-text">จัดส่งสำเร็จ</div>
+                </div>
+            </div>
+
+            <!-- ข้อมูลขนส่ง -->
+            <div class="courier-box">
+                <div class="courier-info">
+                    <div class="courier-badge">FLASH</div>
+                    <div>
+                        <div class="courier-name">จัดส่งโดย Flash Express</div>
+                        <div class="courier-track">เลขพัสดุ: TH2026998123A (คาดว่าจะได้รับใน 1-2 วัน)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+        <!-- ปุ่มทางเลือก -->
+        <div class="btn-group">
+            <a href="shop.html" class="btn-sub">เลือกซื้อสินค้าเพิ่ม</a>
+            <a href="index.html" class="btn-main">กลับสู่หน้าหลัก 🏠</a>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 AI Virtual Stylist. All rights reserved.</p></footer>
+
+    <script>
+        // ดึงรายการสินค้าที่เพิ่งสั่งซื้อมาโชว์ในข้อความ
+        function loadOrderSummary() {
+            const lastOrder = JSON.parse(localStorage.getItem('last_order_items')) || [];
+            if(lastOrder.length > 0) {
+                const names = lastOrder.map(item => item.name).join(', ');
+                document.getElementById('items-summary').innerText = `คุณสั่งซื้อ "${names}" เรียบร้อยแล้ว ระบบกำลังเตรียมจัดส่งให้คุณค่ะ`;
+            }
+        }
+
+        // ฟังก์ชันกดเก็บโค้ดส่วนลด
+        function claimCoupon(btn) {
+            btn.innerText = "เก็บแล้ว ✓";
+            btn.classList.add('claimed');
+            btn.disabled = true;
+            alert("🎉 เก็บโค้ดส่วนลดสำเร็จ! ระบบบันทึกโค้ดไว้ให้คุณแล้วค่ะ");
+        }
+
+        loadOrderSummary();
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Virtual Stylist - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-brown: #8c7d76;
+            --accent-brown: #a88970;
+            --bg-cream: #fcf9f6;
+            --text-dark: #3d312e;
+            --border-color: #ede5e0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Anuphan', sans-serif; }
+        body { background-color: var(--bg-cream); color: var(--text-dark); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+
+        header { background-color: rgba(255, 255, 255, 0.95); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
+        .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 20px; }
+        .logo { font-size: 24px; font-weight: 700; color: var(--primary-brown); }
+        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links a { font-weight: 600; font-size: 15px; color: #7a6e67; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-brown); }
+
+        .hero-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .hero-banner { background: #ffffff; border: 1px solid var(--border-color); border-radius: 32px; display: grid; grid-template-columns: 1.1fr 0.9fr; overflow: hidden; box-shadow: 0 5px 20px rgba(168,137,112,0.05); }
+        .hero-text-side { padding: 80px 60px; }
+        
+        /* ส่วนที่ใส่รูปภาพ */
+        .hero-img-side { 
+            background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=1000&auto=format&fit=crop'); 
+            background-size: cover; 
+            background-position: center; 
+            min-height: 400px; 
+        }
+
+        .badge-ai { background: #fdf5ef; color: var(--accent-brown); padding: 6px 16px; border-radius: 30px; font-weight: 700; font-size: 12px; margin-bottom: 20px; display: inline-block; }
+        h1 { font-size: 48px; color: var(--text-dark); margin-bottom: 20px; }
+        h1 span { color: var(--accent-brown); }
+        .btn-primary { background: var(--text-dark); color: white; padding: 16px 36px; border-radius: 30px; font-weight: 600; transition: 0.3s; display: inline-block; }
+        .btn-primary:hover { background: var(--accent-brown); }
+        .btn-secondary { background: transparent; border: 2px solid var(--border-color); color: var(--text-dark); padding: 16px 36px; border-radius: 30px; font-weight: 600; transition: 0.3s; }
+        .btn-secondary:hover { border-color: var(--accent-brown); color: var(--accent-brown); }
+
+        .stat-card { background: white; border: 1px solid var(--border-color); padding: 30px; border-radius: 20px; text-align: center; }
+        .stat-number { color: var(--accent-brown); font-size: 36px; font-weight: 700; }
+
+        footer { background: var(--text-dark); color: #baae7a; text-align: center; padding: 40px; margin-top: 80px; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">AI Virtual Stylist</div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="stylist.html">AI Stylist</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="Cart.html">Cart</a></li>
+                <li><a href="order-success.html">Order Status </a></li>
+                
+             
+            </ul>
+        </nav>
+    </header>
+
+    <main class="hero-container">
+        <div class="hero-banner">
+            <div class="hero-text-side">
+                <span class="badge-ai">✨ VINTAGE MINIMAL STYLE</span>
+                <h1>Mix Your Style<br>With <span>Smart AI</span></h1>
+                <p>คัดสรรสไตล์ที่ใช่ ให้คุณดูดีที่สุดในแบบที่เป็นตัวเอง ด้วยระบบอัจฉริยะที่เข้าใจคุณ</p>
+                <div style="margin-top: 30px; display: flex; gap: 15px;">
+                    <a href="shop.html" class="btn-primary">ไปหน้าช้อปปิ้งเลย 🛍️</a>
+                    
+                </div>
+            </div>
+            <!-- รูปภาพถูกใส่ตรงนี้แล้วค่ะ -->
+            <div class="hero-img-side"></div>
+        </div>
+    </main>
+
+    <section style="max-width: 1200px; margin: 60px auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 20px;">
+        <div class="stat-card"><div class="stat-number">30k+</div><div class="stat-label">ไอเทมในระบบ</div></div>
+        <div class="stat-card"><div class="stat-number">99%</div><div class="stat-label">ความพึงพอใจ</div></div>
+        <div class="stat-card"><div class="stat-number">24/7</div><div class="stat-label">บริการดูแล</div></div>
+    </section>
+
+    <footer><p>&copy; 2026 AI Virtual Stylist. All rights reserved.</p></footer>
+</body>
+</html>

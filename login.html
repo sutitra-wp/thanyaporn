@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ | AI Virtual Stylist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Anuphan', sans-serif; }
+        body { background-color: #fcf9f6; color: #4a3e3d; padding: 40px 20px; }
+        
+        .auth-container {
+            max-width: 400px; margin: 40px auto; background: white; 
+            padding: 40px; border-radius: 24px; border: 1px solid #ede5e0;
+            box-shadow: 0 10px 30px rgba(168,137,112,0.05);
+        }
+
+        .auth-tabs { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; border-bottom: 1px solid #ede5e0; padding-bottom: 15px; }
+        .tab { cursor: pointer; font-weight: 600; color: #8c7d76; transition: 0.3s; }
+        .tab.active { color: #a88970; border-bottom: 2px solid #a88970; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; color: #8c7d76; }
+        .form-group input { 
+            width: 100%; padding: 12px; border: 1px solid #ede5e0; 
+            border-radius: 12px; outline: none; font-size: 15px;
+        }
+
+        .btn-auth { 
+            width: 100%; background-color: #a88970; color: white; border: none; 
+            padding: 15px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s;
+        }
+        .btn-auth:hover { background-color: #4a3e3d; }
+        
+        .back-link { display: block; text-align: center; margin-top: 20px; color: #8c7d76; font-size: 14px; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-tabs">
+            <div id="tab-login" class="tab active" onclick="switchForm('login')">เข้าสู่ระบบ</div>
+            <div id="tab-register" class="tab" onclick="switchForm('register')">สมัครสมาชิก</div>
+        </div>
+
+        <form id="login-form" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label>ชื่อผู้ใช้ หรือ อีเมล</label>
+                <input type="text" required placeholder="กรอกชื่อผู้ใช้หรืออีเมล">
+            </div>
+            <div class="form-group">
+                <label>รหัสผ่าน</label>
+                <input type="password" required placeholder="กรอกรหัสผ่าน">
+            </div>
+            <button type="submit" class="btn-auth">เข้าสู่ระบบ</button>
+        </form>
+
+        <form id="register-form" class="hidden" onsubmit="handleRegister(event)">
+            <div class="form-group">
+                <label>ชื่อผู้ใช้งาน</label>
+                <input type="text" required placeholder="ตั้งชื่อผู้ใช้งาน">
+            </div>
+            <div class="form-group">
+                <label>อีเมล</label>
+                <input type="email" required placeholder="example@email.com">
+            </div>
+            <div class="form-group">
+                <label>รหัสผ่าน</label>
+                <input type="password" required placeholder="ตั้งรหัสผ่าน">
+            </div>
+            <button type="submit" class="btn-auth">สมัครสมาชิกใหม่</button>
+        </form>
+
+        <a href="index.html" class="back-link">← กลับไปหน้าแรก</a>
+    </div>
+
+    <script>
+        function switchForm(type) {
+            document.getElementById('login-form').classList.toggle('hidden', type !== 'login');
+            document.getElementById('register-form').classList.toggle('hidden', type !== 'register');
+            document.getElementById('tab-login').classList.toggle('active', type === 'login');
+            document.getElementById('tab-register').classList.toggle('active', type === 'register');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            alert('ยินดีต้อนรับกลับมาค่ะ!');
+            window.location.href = 'index.html';
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            alert('สมัครสมาชิกสำเร็จแล้วค่ะ!');
+            switchForm('login');
+        }
+    </script>
+</body>
+</html>

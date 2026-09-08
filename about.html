@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Virtual Stylist - About</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Anuphan', sans-serif;
+        }
+
+        body {
+            background-color: #fcf9f6;
+            color: #4a3e3d;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Navigation Bar --- */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(180,160,150,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #a88970, #c8b195);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            font-size: 15px;
+            color: #7a6e67;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #a88970;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #a88970;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* --- Main Content --- */
+        .about-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .about-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #3d312e;
+            margin-bottom: 40px;
+        }
+
+        /* การ์ดเนื้อหาหลักแบบ Vintage คลีนๆ */
+        .main-card {
+            background: white;
+            border: 1px solid #ede5e0;
+            border-top: 4px solid #a88970; /* เปลี่ยนจากแถบสีนีออนเป็นสีน้ำตาล */
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(168,137,112,0.03);
+            margin-bottom: 40px;
+        }
+
+        .main-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #fcf8f5;
+            border: 1px solid #ede5e0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px auto;
+            font-size: 35px;
+        }
+
+        .main-card h2 {
+            font-size: 22px;
+            color: #3d312e;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .main-card h2 span {
+            color: #a88970;
+        }
+
+        .main-card p {
+            font-size: 16px;
+            color: #8c7d76;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- Sub Features Grid --- */
+        .sub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .sub-card {
+            background: white;
+            border: 1px solid #ede5e0;
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(168,137,112,0.02);
+        }
+
+        .sub-icon {
+            font-size: 28px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .sub-card h3 {
+            font-size: 18px;
+            color: #3d312e;
+            margin-bottom: 12px;
+        }
+
+        .sub-card p {
+            font-size: 14px;
+            color: #6e615c;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #3d312e;
+            color: #baae7a;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 14px;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">AI Virtual Stylist</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="stylist.html">AI Stylist</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="Cart.html">Cart</a></li>
+                <li><a href="order-success.html">Order Status </a></li>
+                
+                
+            </ul>
+        </nav>
+    </header>
+
+    <main class="about-container">
+        <h1 class="about-title">About Us</h1>
+
+        <div class="main-card">
+            <div class="main-icon">✨</div>
+            <h2><span>AI Virtual Stylist</span> คือผู้ช่วยออกแบบการแต่งตัวส่วนตัวยุคดิจิทัล เราได้นำเทคโนโลยีปัญญาประดิษฐ์มาช่วยวิเคราะห์และคัดสรรสไตล์การแต่งตัวให้เหมาะกับไลฟ์สไตล์ รูปร่าง และโอกาสพิเศษต่างๆ ของคุณอย่างลงตัว</h2>
+            <p>เป้าหมายของเราคือการทำให้ทุกคนสนุกกับการแต่งตัว และมั่นใจในทุกครั้งที่ก้าวเท้าออกจากบ้านด้วยเทคโนโลยีอันชาญฉลาดและรวดเร็ว</p>
+        </div>
+
+        <div class="sub-grid">
+            <div class="sub-card">
+                <span class="sub-icon">🧠</span>
+                <h3>AI Smart Analysis</h3>
+                <p>วิเคราะห์โครงสร้างร่างกายและสีผิวด้วยระบบอัจฉริยะแม่นยำ</p>
+            </div>
+            <div class="sub-card">
+                <span class="sub-icon">👚</span>
+                <h3>Personalized Style</h3>
+                <p>จัดเซ็ตเสื้อผ้าที่สะท้อนความเป็นตัวคุณในทุกมิติ</p>
+            </div>
+            <div class="sub-card">
+                <span class="sub-icon">⚡</span>
+                <h3>Instant Matching</h3>
+                <p>มิกซ์แอนด์แมตช์ได้ทันที ประหยัดเวลาในชีวิตประจำวัน</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 AI Virtual Stylist. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

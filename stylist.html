@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Stylist Nene - AI Virtual Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 1. โหลดไลบรารี ResponsiveVoice (เวอร์ชันเปิดใช้งานได้ทันที) -->
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Anuphan', sans-serif; }
+        body { background-color: #fcf9f6; color: #4a3e3d; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+
+        header { background-color: #ffffff; box-shadow: 0 2px 15px rgba(180,160,150,0.1); position: sticky; top: 0; z-index: 1000; }
+        .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 20px; }
+        .logo { font-size: 24px; font-weight: 700; background: linear-gradient(45deg, #a88970, #c8b195); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links a { font-weight: 600; font-size: 15px; color: #7a6e67; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: #a88970; border-bottom: 2px solid #a88970; padding-bottom: 4px; }
+
+        .container { max-width: 850px; margin: 40px auto; padding: 0 20px; }
+        
+        .section-header { text-align: center; margin-bottom: 30px; }
+        .page-title { font-size: 28px; font-weight: 700; color: #3d312e; margin-bottom: 8px; }
+        .page-subtitle { color: #9c8e87; font-size: 15px; }
+
+        .ai-stylist-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid #ede5e0;
+            box-shadow: 0 10px 30px rgba(168,137,112,0.1);
+            text-align: center;
+        }
+
+        .avatar-box {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fdf5ef, #ede5e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(168,137,112,0.2);
+            border: 4px solid #ffffff;
+            animation: breathe 4s ease-in-out infinite;
+        }
+        
+        .avatar-box::before {
+            content: '';
+            position: absolute;
+            top: -6px; left: -6px; right: -6px; bottom: -6px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #a88970, #c8b195, #f5ede6);
+            z-index: -1;
+            opacity: 0.8;
+            animation: rotateGlow 6s linear infinite;
+        }
+
+        .avatar-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .speaking .avatar-img {
+            animation: talkMotion 0.4s ease-in-out infinite alternate;
+        }
+
+        .ai-name-badge {
+            font-size: 20px;
+            font-weight: 700;
+            color: #3d312e;
+            margin-bottom: 4px;
+        }
+
+        .voice-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #a88970;
+            font-weight: 600;
+            background: #fdf5ef;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        .sound-wave {
+            display: none;
+            width: 8px; height: 8px;
+            background: #a88970;
+            border-radius: 50%;
+            animation: soundPing 1s infinite;
+        }
+        .speaking .sound-wave { display: inline-block; }
+
+        @keyframes breathe {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
+        }
+        @keyframes talkMotion {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.06); }
+        }
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes soundPing {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.4); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.5; }
+        }
+
+        .chat-container {
+            height: 280px;
+            background: #faf8f6;
+            border: 1px solid #ede5e0;
+            border-radius: 18px;
+            padding: 15px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .chat-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .chat-bubble.nene {
+            background: #fdf5ef;
+            color: #3d312e;
+            border: 1px solid #f0e4db;
+            align-self: flex-start;
+            border-top-left-radius: 4px;
+        }
+
+        .chat-bubble.user {
+            background: #a88970;
+            color: #ffffff;
+            align-self: flex-end;
+            border-top-right-radius: 4px;
+        }
+
+        .faq-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+        .faq-tag-btn {
+            background: #ffffff;
+            border: 1px solid #a88970;
+            color: #a88970;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .faq-tag-btn:hover {
+            background: #a88970;
+            color: #ffffff;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: 1px solid #ede5e0;
+            outline: none;
+            font-size: 14px;
+            background: #faf8f6;
+        }
+        .chat-input:focus { border-color: #a88970; background: #ffffff; }
+        .btn-send {
+            background: linear-gradient(45deg, #a88970, #c8b195);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn-send:hover { opacity: 0.9; }
+
+        footer { background: #3d312e; color: #baae7a; text-align: center; padding: 40px 20px; margin-top: 60px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">AI Virtual Stylist</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="stylist.html" class="active">AI Stylist</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="Cart.html">Cart 🛒</a></li>
+                <li><a href="order-success.html">Order Status </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="section-header">
+            <h1 class="page-title">คุยกับน้อง "เน่เน่" AI Stylist 🌸</h1>
+            <p class="page-subtitle">แชตบอต AI อัจฉริยะ ตอบคำถาม แนะนำชุด และพูดเสียงนุ่มนวลได้ตลอด 24 ชม. ค่ะ</p>
+        </div>
+
+        <div class="ai-stylist-card" id="stylist-card">
+            <div class="avatar-box">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400" alt="Nene AI Stylist" class="avatar-img">
+            </div>
+            <div class="ai-name-badge">น้องเน่เน่ (Nene AI)</div>
+            <div class="voice-indicator">
+                <span class="sound-wave"></span>
+                <span id="voice-status">เน่เน่พร้อมคุยกับคุณลูกค้าแล้วค่ะ</span>
+            </div>
+
+            <div class="chat-container" id="chat-box">
+                <div class="chat-bubble nene">
+                    สวัสดีค่ะคุณลูกค้า~ เน่เน่ยินดีต้อนรับนะคะ💖 วันนี้อยากให้เน่เน่ช่วยแนะนำชุด หรือมีคำถามเรื่องค่าจัดส่ง/โปรโมชั่น พิมพ์แชตถามเน่เน่ได้เลยนะคะ!
+                </div>
+            </div>
+
+            <div class="faq-tags">
+                <button class="faq-tag-btn" onclick="quickAsk('แนะนำชุดไปคาเฟ่ให้หน่อยค่ะ')">☕ ชุดไปคาเฟ่</button>
+                <button class="faq-tag-btn" onclick="quickAsk('อยากได้ชุดไปทำงานสวยๆ ค่ะ')">💼 ชุดไปทำงาน</button>
+                <button class="faq-tag-btn" onclick="quickAsk('คิดค่าจัดส่งยังไงคะ')">🚚 ค่าจัดส่งกี่บาท?</button>
+                <button class="faq-tag-btn" onclick="quickAsk('มีส่วนลดอะไรบ้างคะ')">🏷️ โปรโมชั่น</button>
+                <button class="faq-tag-btn" onclick="quickAsk('เปลี่ยนไซส์ได้ไหมคะ')">🔄 การเปลี่ยนสินค้า</button>
+            </div>
+
+            <div class="chat-input-row">
+                <input type="text" id="user-input" class="chat-input" placeholder="พิมพ์ข้อความคุยกับเน่เน่ที่นี่เลยค่ะ..." onkeypress="handleKeyPress(event)">
+                <button class="btn-send" onclick="sendMessage()">ส่งแชต</button>
+            </div>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 AI Virtual Stylist. All rights reserved.</p></footer>
+
+    <script>
+        const neneKnowledge = [
+            { keywords: ["คาเฟ่", "กาแฟ", "เที่ยว"], text: "ถ้าไปฮอปปิ้งคาเฟ่ เน่เน่แนะนำ 'ชุดเซ็ตคาร์ดิแกนคู่กระโปรงสั้นมินิมอลเกรซ' ค่ะ คุมโทนสว่าง ถ่ายรูปออกมาน่ารักมากๆ เลยนะคะ ✨" },
+            { keywords: ["ทำงาน", "ออฟฟิศ", "ประชุม"], text: "สำหรับชุดทำงาน เน่เน่ขอเชียร์ 'เดรสสูทคัตติ้งมาสเตอร์' ค่ะ ใส่แล้วดูเป็นเวิร์กกิ้งวูแมนที่สง่าและมีสไตล์สุดๆ เลยค่ะ 💕" },
+            { keywords: ["ทะเล", "ชายหาด", "เกาะ"], text: "ไปเที่ยวทะเล เน่เน่แนะนำ 'เดรสลินินสายลมฤดูร้อน' ค่ะ ผ้าบางเบาใส่สบาย พริ้วรับลมทะเลสวยมากๆ ค่ะ 🌊" },
+            { keywords: ["ทำบุญ", "วัด", "สุภาพ"], text: "ถ้าไปทำบุญ เน่เน่แนะนำ 'ชุดเซ็ตกระโปรงบานนวลครีม' ค่ะ สวยเรียบร้อย ถูกกาลเทศะ และดูแพงมากๆ เลยค่ะ 🙏" },
+            { keywords: ["ปาร์ตี้", "งานเลี้ยง", "กลางคืน"], text: "ออกงานปาร์ตี้ ต้อง 'เดรสซาตินราตรีเที่ยงคืน' เลยค่ะคุณลูกค้า โดดเด่นขับผิววิ้งวับยามค่ำคืนแน่นอนค่ะ ✨" },
+            { keywords: ["ส่ง", "ค่าส่ง", "กี่วัน"], text: "เรื่องการจัดส่ง ร้านเราจัดส่งด่วน EMS ฟรีเมื่อซื้อครบ 1,500 บาทค่ะ หากไม่ถึงจะมีค่าจัดส่ง 50 บาท และสินค้าจะถึงมือภายใน 1-2 วันทำการนะคะ 🚚" },
+            { keywords: ["โปร", "ลด", "ส่วนลด"], text: "ตอนนี้มีโปรโมชั่นซื้อยกชุดลดพิเศษ 10-15% พร้อมจัดส่งฟรีทั่วประเทศเลยนะคะ คุ้มมากๆ เลยค่ะคุณลูกค้า 🎁" },
+            { keywords: ["เปลี่ยน", "คืน", "ไซส์"], text: "หากซื้อไปแล้วใส่ไม่พอดี สามารถแจ้งเปลี่ยนไซส์ได้ภายใน 7 วันหลังได้รับสินค้าค่ะ สินค้าต้องอยู่ในสภาพเดิมนะคะ เน่เน่ยินดีดูแลให้ค่ะ 💖" },
+            { keywords: ["ราคา", "กี่บาท"], text: "สินค้าร้านเราเริ่มต้นตั้งแต่ 390 บาท ไปจนถึงชุดเซ็ตพรีเมียม 2,890 บาทค่ะ เลือกชมในหน้า Shop ได้เลยนะคะ 🛍️" }
+        ];
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function quickAsk(text) {
+            document.getElementById('user-input').value = text;
+            sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const userMsg = input.value.trim();
+            if (!userMsg) return;
+
+            appendBubble(userMsg, 'user');
+            input.value = '';
+
+            let neneReply = "เน่เน่รับทราบค่ะคุณลูกค้า~ สำหรับคำถามนี้ คุณลูกค้าสามารถลองดูสินค้าเพิ่มเติมในหน้า Shop หรือทักแชทหาแอดมินให้ช่วยดูแลเพิ่มเติมได้เลยนะคะ 💕";
+
+            for (let item of neneKnowledge) {
+                if (item.keywords.some(kw => userMsg.includes(kw))) {
+                    neneReply = item.text;
+                    break;
+                }
+            }
+
+            setTimeout(() => {
+                appendBubble(neneReply, 'nene');
+                speakNene(neneReply);
+            }, 300);
+        }
+
+        function appendBubble(text, sender) {
+            const chatBox = document.getElementById('chat-box');
+            const bubble = document.createElement('div');
+            bubble.className = `chat-bubble ${sender}`;
+            bubble.innerText = text;
+            chatBox.appendChild(bubble);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // 2. ปรับแต่งฟังก์ชันเรียกใช้ ResponsiveVoice ล็อคเสียงผู้หญิงไทย
+        function speakNene(text) {
+            const card = document.getElementById('stylist-card');
+            const status = document.getElementById('voice-status');
+
+            card.classList.add('speaking');
+            status.innerText = "เน่เน่กำลังพูดตอบเป็นภาษาไทย...";
+
+            if (window.responsiveVoice) {
+                // ปล่อยเสียงพูดผู้หญิงไทย (Thai Female)
+                responsiveVoice.speak(text, "Thai Female", {
+                    pitch: 1.1,  // ปรับระดับเสียงให้หวานใสขึ้น
+                    rate: 0.95,  // ปรับความเร็วการพูดให้พอดี
+                    onstart: function() {
+                        card.classList.add('speaking');
+                    },
+                    onend: function() {
+                        card.classList.remove('speaking');
+                        status.innerText = "เน่เน่พร้อมคุยกับคุณลูกค้าแล้วค่ะ";
+                    }
+                });
+            } else {
+                console.error("ResponsiveVoice ไม่พร้อมใช้งาน");
+                card.classList.remove('speaking');
+                status.innerText = "เน่เน่พร้อมคุยกับคุณลูกค้าแล้วค่ะ";
+            }
+        }
+
+        // ปลดล็อกระบบ Audio เมื่อผู้ใช้คลิกส่วนใดส่วนหนึ่งบนหน้าเว็บครั้งแรก (แก้ปัญหา Autoplay Block)
+        document.body.addEventListener('click', function() {
+            if (window.responsiveVoice && !responsiveVoice.voiceSupport()) {
+                responsiveVoice.init();
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
