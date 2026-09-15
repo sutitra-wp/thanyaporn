@@ -206,7 +206,7 @@
                     ยอดชำระทั้งหมด: <span id="pay-total-amount">฿0</span>
                 </div>
 
-                <!-- 🎁 โซนเก็บโค้ดส่วนลด -->
+                <!-- 🎁 โซนเก็บโค้ดส่วนลด (ย้ายมาไว้ตรงนี้แล้ว!) -->
                 <div class="coupon-section-modal">
                     <div class="coupon-title-modal">🎁 โค้ดส่วนลดพิเศษสำหรับออเดอร์นี้!</div>
                     
@@ -215,7 +215,7 @@
                             <h4>ส่วนลด 15% (โค้ด: THANKYOU15)</h4>
                             <p>ลดทันที 15% สำหรับทุกรายการ</p>
                         </div>
-                        <button class="btn-claim-modal" data-label="ใช้โค้ดลด 15%" onclick="applyDiscount(0.15, this)">ใช้โค้ดลด 15%</button>
+                        <button class="btn-claim-modal" onclick="applyDiscount(0.15, this)">ใช้โค้ดลด 15%</button>
                     </div>
 
                     <div class="coupon-card-modal">
@@ -223,7 +223,7 @@
                             <h4>ส่วนลดพิเศษ ฿100</h4>
                             <p>ลดทันที 100 บาท (โค้ด: SAVE100)</p>
                         </div>
-                        <button class="btn-claim-modal" data-label="ใช้โค้ดลด 100฿" onclick="applyFlatDiscount(100, this)">ใช้โค้ดลด 100฿</button>
+                        <button class="btn-claim-modal" onclick="applyFlatDiscount(100, this)">ใช้โค้ดลด 100฿</button>
                     </div>
                 </div>
 
@@ -352,8 +352,6 @@
                 document.getElementById('grand-total').innerText = '฿0';
                 document.getElementById('discount-val').innerText = '-฿0';
                 currentSubtotal = 0;
-                discountAmount = 0;
-                resetCouponButtons();
                 return;
             }
 
@@ -389,7 +387,7 @@
 
         function calculateTotal() {
             let finalTotal = currentSubtotal - discountAmount;
-            if (finalTotal < 0) finalTotal = 0;
+            if(finalTotal < 0) finalTotal = 0;
 
             document.getElementById('subtotal').innerText = `฿${currentSubtotal.toLocaleString()}`;
             document.getElementById('discount-val').innerText = `-฿${discountAmount.toLocaleString()}`;
@@ -397,12 +395,11 @@
             document.getElementById('pay-total-amount').innerText = `฿${finalTotal.toLocaleString()}`;
         }
 
-        /* --- ฟังก์ชันจัดการโค้ดส่วนลด --- */
+        /* --- ฟังก์ชันคำนวณโค้ดส่วนลด --- */
         function resetCouponButtons() {
             const btns = document.querySelectorAll('.btn-claim-modal');
             btns.forEach(b => {
-                const originalText = b.getAttribute('data-label') || 'ใช้โค้ดนี้';
-                b.innerText = originalText;
+                b.innerText = "ใช้โค้ดนี้";
                 b.classList.remove('claimed');
                 b.disabled = false;
             });
